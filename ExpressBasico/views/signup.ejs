@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+
+</body>
+
+<h1>Registro en el sistema</h1>
+
+<% if (message != null) { %>
+    <h4><%=  message %></h4>
+<% } %>
+
+<form action="/signup" method="post">
+    <input name="id" type="text" required placeholder="Username"/>
+    <input name="password" type="password" required placeholder="Password"/>
+    <input type="submit" value="Registrate!"/>
+</form>
+</html>

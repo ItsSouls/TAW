@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1></h1>
+
+<form action="/pedidos/<%=id%>/guardar" method="post">
+    <h1>Datos del cliente</h1>
+    <input type="hidden" name="PURCHASE_ORDER" value="<%= (pedido ? pedido.ORDER_NUM: '') %>">
+    <table>
+        <tr>
+            <td>Costo de Envío: </td>
+            <td> <input type="number" name="SHIPPING_COST" value="<%= (pedido ? pedido.SHIPPING_COST: '') %>" size="12">
+            </td>
+        </tr>
+        <tr>
+            <td>Fecha envío: </td>
+            <td> <input type="date" name="SHIPPING_DATE" value="<%= (pedido ? pedido.SHIPPING_DATE: '') %>">
+            </td>
+        </tr>
+        <tr>
+            <td>Compañia de envío: </td>
+            <td> <input type="text" name="FREIGHT_COMPANY" value="<%= (pedido ? pedido.FREIGHT_COMPANY: '') %>" size="15" maxlength="15">
+            </td>
+        </tr>
+        <tr>
+            <td>Productos: </td>
+            <td>
+                <select name="PRODUCT_ID">
+                    <% productos.forEach(function(producto) { %>
+                    <option value="<%= producto.PRODUCT_ID %>" label="<%= producto.DESCRIPTION %>" selected = "" />
+                    <% }); %>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input value="Guardar" type="submit"> </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>

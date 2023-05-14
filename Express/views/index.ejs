@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="public/stylesheets/style.css"/>
+</head>
+<body>
+<h1>Listado de clientes</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>EMAIL</th>
+        <th>NAME</th>
+        <th>CREDIT LIMIT</th>
+        <th>DISCOUNT CODE</th>
+        <th>CITY</th>
+    </tr>
+    <% for (var i=0; i<users.length; i++) { %>
+    <tr>
+        <th><%=users[i].CUSTOMER_ID%></th>
+        <th><%=users[i].EMAIL%></th>
+        <th><%=users[i].NAME%></th>
+        <th><%=users[i].CREDIT_LIMIT%></th>
+        <th><%=users[i].DISCOUNT_CODE%></th>
+        <th><%=users[i].CITY%></th>
+    </tr>
+    <% } %>
+</table>
+</body>
+</html>
+
+
+
