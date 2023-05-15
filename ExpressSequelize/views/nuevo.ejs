@@ -9,7 +9,7 @@
 
 <form action="/pedidos/<%=id%>/guardar" method="post">
     <h1>Datos del cliente</h1>
-    <input type="hidden" name="PURCHASE_ORDER" value="<%= (pedido ? pedido.ORDER_NUM: '') %>">
+    <input type="hidden" name="ORDER_NUM" value="<%= (pedido ? pedido.ORDER_NUM: '') %>">
     <table>
         <tr>
             <td>Costo de Envío: </td>

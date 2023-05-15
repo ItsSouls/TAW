@@ -12,5 +12,6 @@ router.get("/borrar/:id", clientesController.borrarCliente);
 router.get("/pedidos/:id", pedidosController.listarpedidos);
 router.get("/pedidos/:id/nuevo", pedidosController.nuevo);
 router.post ("/pedidos/:id/guardar", pedidosController.guardarpedido);
+router.get("/pedidos/:id/editar", pedidosController.editarpedido);
 
 module.exports = router;

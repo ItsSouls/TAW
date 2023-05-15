@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1></h1>
+
+<form action="/pedidos/<%=id%>/guardar" method="post">
+    <h1>Datos del pedido</h1>
+    <input type="hidden" name="ORDER_NUM" value="<%= (pedido ? pedido.ORDER_NUM: '') %>">
+    <table>
+        <tr>
+            <td>ID CLIENTE: </td>
+            <td> <input type="number" name="CUSTOMER_ID" value="<%= (pedido ? pedido.CUSTOMER_ID: '') %>" size="30" maxlength="30"> </td>
+        </tr>
+        <tr>
+            <td>CANTIDAD: </td>
+            <td> <input type="number" name="QUANTITY" value="<%= (pedido ? pedido.QUANTITY: '') %>" size="30" maxlength="30"> </td>
+        </tr>
+        <tr>
+            <td>COSTE DE ENVÍO: </td>
+            <td> <input type="text" name="SHIPPING_COST" value="<%= (pedido ? pedido.SHIPPING_COST: '') %>" size="25" maxlength="25">
+            </td>
+        </tr>
+        <tr>
+            <td>FECHA DE VENTA: </td>
+            <td> <input type="date" name="SALES_DATE" value="<%= (pedido ? pedido.SALES_DATE: '') %>" size="2" maxlength="2">
+            </td>
+        </tr>
+        <tr>
+            <td>FECHA DE ENVÍO: </td>
+            <td> <input type="date" name="SHIPPING_DATE" value="<%= (pedido ? pedido.SHIPPING_DATE: '') %>" size="12" maxlength="12">
+            </td>
+        </tr>
+        <tr>
+            <td>COMPAÑÍA DE ENVÍO: </td>
+            <td> <input type="text" name="FREIGHT_COMPANY" value="<%= (pedido ? pedido.FREIGHT_COMPANY: '') %>" size="12" maxlength="12">
+            </td>
+        </tr>
+        <tr>
+            <td>Productos: </td>
+            <td>
+                <select name="PRODUCT_ID">
+                    <% productos.forEach(function(producto) {
+                        var selected = "";
+                        if (pedido && pedido.PRODUCT_ID == producto.PRODUCT_ID) {
+                            selected = "SELECTED"
+                        }
+                    %>
+                        <option value="<%= producto.PRODUCT_ID %>" label="<%= producto.DESCRIPTION %>" <%=selected%>> />
+                    <% }); %>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input value="Guardar" type="submit"> </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>

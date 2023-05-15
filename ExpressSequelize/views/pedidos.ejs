@@ -13,6 +13,7 @@
         <th>SALES_DATE</th>
         <th>DESCRIPCION</th>
         <th>COSTO</th>
+        <th>EDITAR</th>
     </tr>
     <% pedidos.forEach(function(pedido) { %>
         <%productos.forEach(function (producto){
@@ -24,6 +25,7 @@
             <td> <%= pedido.SALES_DATE%> </td>
             <td><%= producto.DESCRIPTION%></td>
             <td><%= producto.PURCHASE_COST%></td>
+            <td><a href="/pedidos/<%=pedido.ORDER_NUM%>/editar">pedidos</a></td>
         </tr>
     <%  }
             });
