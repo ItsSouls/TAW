@@ -1,22 +1,60 @@
 var initModels = require("../models/init-models");
 const sequelize = require("sequelize");
 var models = initModels(sequelize);
+const { Op } = require("sequelize");
 
 const controller = {};
 
 // Listar clientes /////////////////////////////////////////////////////////////////////////////////////////////////////
 controller.listarClientes = async function (req, res, next) {
     try {
-        await models.CUSTOMER
-            .findAll()
-            .then(async (data) => {
+        const clientes = await models.CUSTOMER.findAll();
             //res.json(data);
-            res.render("index", {clientes: data});
-        });
+            res.render("index", {clientes: clientes, filtro: req.params.filtro});
     } catch (error) {
         res.send("Se ha producido un error " + error);
     }
 };
+// filtrar clientes /////////////////////////////////////////////////////////////////////////////////////////////////////
+/*controller.filtrarClientes = async function (req, res, next) {
+    try {
+        const filtro = req.body.filtro;
+        const clientes = await models.CUSTOMER.findAll(
+            {
+                where: {
+                    NAME: {
+                        [Op.like]: `%${filtro}%`
+                    }
+                }
+            });
+        //res.json(data);
+        res.render("index", {clientes: clientes, filtro: filtro});
+    } catch (error) {
+        res.send("Se ha producido un error " + error);
+    }
+};*/
+
+controller.filtrarClientes = async function (req, res, next) {
+    try {
+        const filtro = req.body.filtro;
+        let clientes;
+        if(filtro){
+            clientes = await models.CUSTOMER.findAll(
+                {
+                        order: [
+                            ["NAME", "DESC"]
+                        ]
+                });
+        } else {
+            clientes = await models.CUSTOMER.findAll();
+        }
+        //res.json(data);
+        res.render("index", {clientes: clientes, filtro: filtro});
+    } catch (error) {
+        res.send("Se ha producido un error " + error);
+    }
+};
+
 // Editar cliente //////////////////////////////////////////////////////////////////////////////////////////////////////
 controller.editarCliente = async function (req, res, next) {
     try {

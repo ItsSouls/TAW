@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
   <head>
     <title></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1></h1>
-
+<form method="post" action="/filtrar">
+  <!--<input type="text" name="filtro" value="<%= filtro %>"></input>-->
+  <input type="checkbox" name="filtro" <%if(filtro){%>checked<%}%>>PACO</input>
+  <input type="submit">
+</form>
     <table>
       <tr>
         <th>EMAIL</th>
@@ -29,6 +33,7 @@
         </tr>
       <% }); %>
     </table>
+
   <a href="/nuevo">Nuevo ...</a>
   </body>
 </html>

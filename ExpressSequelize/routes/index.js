@@ -8,6 +8,7 @@ router.get("/", clientesController.listarClientes);
 router.get("/editar/:id",clientesController.editarCliente);
 router.get("/nuevo",clientesController.nuevoCliente);
 router.post ("/guardar", clientesController.guardarCliente);
+router.post ("/filtrar", clientesController.filtrarClientes);
 router.get("/borrar/:id", clientesController.borrarCliente);
 router.get("/pedidos/:id", pedidosController.listarpedidos);
 router.get("/pedidos/:id/nuevo", pedidosController.nuevo);
