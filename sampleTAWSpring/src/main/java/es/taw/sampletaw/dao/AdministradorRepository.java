@@ -10,5 +10,3 @@ public interface AdministradorRepository extends JpaRepository<Administrador, In
     @Query("select a from Administrador a where a.email = :user and a.password = :password")
     public Administrador autenticar (@Param("user") String user, @Param("password")String password);
 }
-
-

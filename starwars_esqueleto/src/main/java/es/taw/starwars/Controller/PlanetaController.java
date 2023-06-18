@@ -1,13 +1,12 @@
-package es.taw.starwars.Controller;
+package es.taw.starwars.controller;
 
-import es.taw.starwars.Repository.EspecieRepository;
-import es.taw.starwars.Repository.FamiliaRepository;
-import es.taw.starwars.Repository.PlanetaRepository;
-import es.taw.starwars.entity.Especie;
-import es.taw.starwars.entity.FamiliaEspecie;
-import es.taw.starwars.entity.Planeta;
-import es.taw.starwars.ui.Filtro;
+import es.taw.starwars.entity.*;
+import es.taw.starwars.repository.especieRepository;
+import es.taw.starwars.repository.familiaEspecieRepository;
+import es.taw.starwars.repository.personajeRepository;
+import es.taw.starwars.repository.planetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,63 +18,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class PlanetaController {
+public class planetaController {
+    @Autowired
+    protected planetaRepository planetaRepository;
+    @Autowired
+    protected especieRepository especieRepository;
+    @Autowired
+    protected familiaEspecieRepository familiaEspecieRepository;
+    @Autowired
+    protected personajeRepository personajeRepository;
 
-    @Autowired
-    protected PlanetaRepository planetaRepository;
-
-    @Autowired
-    protected EspecieRepository especieRepository;
-    @Autowired
-    protected FamiliaRepository familiaRepository;
     @GetMapping("/")
     public String doListar(Model model){
-        return filtrado(null,model);
+        return gestorfiltro(null,model);
     }
     @GetMapping("/editar")
     public String doEditar(@RequestParam("id")Integer id, Model model){
-        Especie especie = this.especieRepository.findById(id).get();
-        List<FamiliaEspecie> familiaEspecieList = this.familiaRepository.findAll();
-        model.addAttribute("especies",especie);
-        model.addAttribute("familias", familiaEspecieList);
-        return("Planeta");
+        Especie especie = especieRepository.findById(id).get();
+        List<FamiliaEspecie> familiaEspecie = this.familiaEspecieRepository.findAll();
+        List<Personaje> listapersonajes = this.personajeRepository.listaPersonajesPorEspecie(especie);
+        model.addAttribute("listapersonajes",listapersonajes);
+        model.addAttribute("especieat", especie);
+        model.addAttribute("familiaEspecie",familiaEspecie);
+        return "editar";
     }
-
     @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("especies") Especie especie){
-        Planeta planeta = this.especieRepository.buscarplaneta(especie.getEspecieId());
-        especie.setPlaneta(planeta);
+    public String doGuardar(@ModelAttribute("especieat")Especie especie){
         this.especieRepository.save(especie);
         return "redirect:/";
     }
 
-    @PostMapping("/filtrar")
-    public String doFiltrar(@ModelAttribute("filtro") Filtro filtro, Model model){
-        return filtrado(filtro,model);
+    @PostMapping ("/filtro")
+    public String doFiltrar(@ModelAttribute("filtro")Filtro filtro, Model model){
+        return gestorfiltro(filtro,model);
     }
 
-    public String filtrado(Filtro filtrar, Model model){
-        List<Planeta> planetaList = this.planetaRepository.findAll();
-
-        List<String> climas = new ArrayList<>();
-        for (Planeta p: planetaList){
-            if(!climas.contains(p.getClima()) && p.getClima() != null){
-                climas.add(p.getClima());
+    public String gestorfiltro(Filtro filtro, Model model){
+        List<Planeta> listaplanetas = this.planetaRepository.findAll();
+        List<String> listaclimas = new ArrayList<String>();
+        for (Planeta p: listaplanetas){
+            if(!listaclimas.contains(p.getClima()) && p.getClima() != null){
+                listaclimas.add(p.getClima());
             }
         }
-
-        if(filtrar == null){
-            filtrar = new Filtro();
+        if(filtro == null || filtro.getClima() == "") {
+            filtro = new Filtro();
         }else{
-            if(filtrar.getFiltrar() != ""){
-                planetaList = this.planetaRepository.filtraclima(filtrar.getFiltrar());
-            }else{
-                planetaList = this.planetaRepository.filtrardefault();
-            }
+            listaplanetas = this.planetaRepository.listaplaneta(filtro.getClima());
         }
-        model.addAttribute("climas", climas);
-        model.addAttribute("filtro", filtrar);
-        model.addAttribute("planetas", planetaList);
-        return "Planetas";
+
+        model.addAttribute("listaplanetas", listaplanetas);
+        model.addAttribute("listaclimas", listaclimas);
+        model.addAttribute("filtro", filtro);
+        return "listar";
     }
 }

@@ -13,9 +13,11 @@
     <title>Title</title>
 </head>
 <body>
+
 <jsp:include page="cabecera.jsp" />
+
 <h1>Datos del cliente:</h1>
-<form:form action="/guardar" modelAttribute="cliente" method="post">
+<form:form action="/customer/guardar" modelAttribute="cliente" method="post">
     <form:hidden path="customerId"/>
     Nombre: <form:input path="name" size="30" maxlength="30"  /><br/>
     Email: <form:input path="email" size="40"  maxlength="40"/> <br/>
@@ -26,7 +28,7 @@
     Límite de crédito: <form:input path="creditLimit" size="4" /><br/>
     Telefóno: <form:input type="phone" path="phone" maxlength="12" size="12" /><br/>
     Fax: <form:input type="phone" path="fax" maxlength="12" size="12" /><br/>
-    Código de descuento: <form:select path="discountCodeByDiscountCode"
+     Código de descuento: <form:select path="discountCodeByDiscountCode"
                                       items="${descuentos}"
                                       itemLabel="rate"
                                       itemValue="discountCode"  /> <br/>

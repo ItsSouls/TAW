@@ -18,6 +18,7 @@ public class PurchaseOrder {
     private Product productByProductId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_NUM", nullable = false)
     public Integer getOrderNum() {
         return orderNum;

@@ -41,7 +41,7 @@ public class CustomerController {
     }
 
     protected String procesarFiltrado (Filtro filtro,
-                                       Model model, HttpSession session) {
+                             Model model, HttpSession session) {
         List<Customer> lista;
         String urlto = "customers";
 
@@ -107,4 +107,3 @@ public class CustomerController {
     }
 
 }
-

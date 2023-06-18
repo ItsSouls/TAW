@@ -20,21 +20,20 @@
 </head>
 <body>
 
-
 <jsp:include page="cabecera.jsp"/>
 
 <h1>Listado de clientes</h1>
 
 
 <form:form action="/customer/filtrar" method="post" modelAttribute="filtro">
-    Buscar por: <br/>
-    Contiene: <form:input path="texto" />
-    Supermercado:
+Buscar por: <br/>
+ Contiene: <form:input path="texto" />
+ Supermercado:
     <form:select multiple="true" path="zipSupermercados"  size="6" >
         <form:option value="" label="------" />
         <form:options items="${supermercados}" itemLabel="zipCode" itemValue="zipCode" />
     </form:select>
-    <button>Filtrar</button>
+<button>Filtrar</button>
 </form:form>
 
 <table border="1">
@@ -49,9 +48,9 @@
         <th></th>
         <th></th>
     </tr>
-    <%
-        for (Customer cliente: lista) {
-    %>
+<%
+    for (Customer cliente: lista) {
+%>
     <tr>
         <td><%= cliente.getCustomerId() %></td>
         <td><%= cliente.getEmail() %></td>
@@ -62,12 +61,13 @@
         <td><%= cliente.getMicroMarketByZip().getZipCode() %></td>
         <td><a href="/customer/editar?id=<%= cliente.getCustomerId() %>"> Editar</a></td>
         <td><a href="/customer/borrar?id=<%= cliente.getCustomerId() %>"> Borrar</a></td>
+        <td><a href="/purchaseOrder/listar?idcliente=<%= cliente.getCustomerId() %>"> Pedidos</a></td>
     </tr>
 
 
-    <%
-        }
-    %>
+<%
+    }
+%>
 </table border="1">
 
 <a href="/customer/nuevo" >Nuevo cliente ...</a>
