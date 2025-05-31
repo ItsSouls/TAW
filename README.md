@@ -54,11 +54,6 @@ To work with these projects, you need:
 git clone https://github.com/ItsSouls/TAW.git
 ```
 
-📚 Project Structure
-TAW/
-├── BanK/                  # Banking application project
-├── apache-tomee/          # Server configuration
-└── docs/                  # Documentation
 🤝 Contributing
 This is an academic project. While it's primarily for educational purposes, constructive feedback and suggestions are welcome.
 
